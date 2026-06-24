@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adaptive Robotics Lab</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #111111;
+      --gray-dark: #333333;
+      --gray: #666666;
+      --gray-light: #999999;
+      --border: #e5e5e5;
+      --bg: #ffffff;
+      --bg-soft: #f8f8f8;
+      --accent: #1a56db;
+      --accent-light: #eff4ff;
+      --radius: 8px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      color: var(--black);
+      background: var(--bg);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+
+    /* ── Layout ── */
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 80px 0; }
+    section:nth-child(even) { background: var(--bg-soft); }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px; max-width: 1080px; margin: 0 auto; padding: 0 24px;
+    }
+    .nav-logo {
+      font-weight: 700; font-size: 1rem; letter-spacing: -0.02em;
+      color: var(--black); text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 0.9rem; color: var(--gray-dark); font-weight: 500; }
+    .nav-links a:hover { color: var(--accent); text-decoration: none; }
+
+    /* ── Hero ── */
+    #hero {
+      padding: 100px 0 80px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      max-width: 720px;
+      margin-bottom: 20px;
+    }
+    .hero-title em { font-style: normal; color: var(--accent); }
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--gray);
+      max-width: 560px;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 11px 24px;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .15s, transform .15s;
+    }
+    .btn:hover { opacity: .85; transform: translateY(-1px); text-decoration: none; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-outline { border: 1.5px solid var(--border); color: var(--gray-dark); background: #fff; }
+    .hero-stats {
+      display: flex; gap: 40px; margin-top: 56px;
+      padding-top: 32px; border-top: 1px solid var(--border);
+    }
+    .stat-value { font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; }
+    .stat-label { font-size: 0.82rem; color: var(--gray-light); margin-top: 2px; }
+
+    /* ── Section headings ── */
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .section-desc { color: var(--gray); max-width: 520px; font-size: 1rem; }
+    .section-head { margin-bottom: 48px; }
+
+    /* ── Research ── */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .research-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: box-shadow .15s, transform .15s;
+    }
+    .research-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.07); transform: translateY(-2px); }
+    .research-icon {
+      width: 44px; height: 44px;
+      background: var(--accent-light);
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+    .research-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .research-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.65; }
+
+    /* ── Publications ── */
+    .pub-list { display: flex; flex-direction: column; gap: 0; }
+    .pub-item {
+      display: flex; align-items: flex-start; gap: 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pub-year {
+      min-width: 48px;
+      font-size: 0.8rem; font-weight: 700;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+    .pub-info h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .pub-info p { font-size: 0.85rem; color: var(--gray); }
+    .pub-venue {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 0.73rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-top: 6px;
+    }
+
+    /* ── Team ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 24px;
+    }
+    .team-card {
+      text-align: center;
+      padding: 28px 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #fff;
+      transition: box-shadow .15s;
+    }
+    .team-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+    .team-avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 14px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .team-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+    .team-card .role { font-size: 0.8rem; color: var(--gray); margin-bottom: 8px; }
+    .team-card .research-area {
+      font-size: 0.75rem;
+      color: var(--accent);
+      background: var(--accent-light);
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* ── News ── */
+    .news-list { display: flex; flex-direction: column; gap: 0; }
+    .news-item {
+      display: flex; gap: 24px; align-items: flex-start;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .news-date {
+      min-width: 80px;
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--gray-light);
+      margin-top: 3px;
+    }
+    .news-tag {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      padding: 2px 8px; border-radius: 4px;
+      margin-bottom: 6px;
+    }
+    .tag-award { background: #fef9c3; color: #854d0e; }
+    .tag-paper { background: var(--accent-light); color: var(--accent); }
+    .tag-hiring { background: #f0fdf4; color: #166534; }
+    .tag-event { background: #fdf4ff; color: #7e22ce; }
+    .news-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .news-item p { font-size: 0.85rem; color: var(--gray); }
+
+    /* ── Contact ── */
+    #contact { background: var(--bg); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 20px; }
+    .contact-block h4 { font-size: 0.82rem; font-weight: 700; color: var(--gray-light); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .contact-block p, .contact-block a { font-size: 0.95rem; color: var(--gray-dark); }
+    .contact-form { display: flex; flex-direction: column; gap: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .contact-form input, .contact-form textarea, .contact-form select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-family: var(--font);
+      color: var(--black);
+      background: #fff;
+      transition: border-color .15s;
+      outline: none;
+    }
+    .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
+      border-color: var(--accent);
+    }
+    .contact-form textarea { min-height: 120px; resize: vertical; }
+    .contact-form .btn-primary { align-self: flex-start; border: none; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.5);
+      padding: 32px 0;
+    }
+    .footer-inner {
+      max-width: 1080px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-inner a { color: rgba(255,255,255,0.7); }
+    .footer-inner a:hover { color: #fff; }
+
+    /* ── Responsive ── */
+    @media (max-width: 680px) {
+      .hero-stats { flex-wrap: wrap; gap: 24px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .form-row { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Adaptive<span>Robotics</span></a>
+    <ul class="nav-links">
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-tag">Robotics · AI · Autonomy</div>
+    <h1 class="hero-title">Building robots that <em>adapt</em> to the real world</h1>
+    <p class="hero-desc">
+      The Adaptive Robotics Lab develops intelligent autonomous systems that learn from experience, collaborate with humans, and operate reliably in unstructured environments.
+    </p>
+    <div class="hero-ctas">
+      <a href="#research" class="btn btn-primary">Our Research</a>
+      <a href="#contact" class="btn btn-outline">Join the Lab</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-value">40+</div>
+        <div class="stat-label">Publications</div>
+      </div>
+      <div>
+        <div class="stat-value">12</div>
+        <div class="stat-label">Lab Members</div>
+      </div>
+      <div>
+        <div class="stat-value">$4M+</div>
+        <div class="stat-label">Active Funding</div>
+      </div>
+      <div>
+        <div class="stat-value">8</div>
+        <div class="stat-label">Industry Partners</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Research Areas</div>
+      <h2 class="section-title">What we work on</h2>
+      <p class="section-desc">Our research spans the intersection of robotics, machine learning, and human-robot interaction.</p>
+    </div>
+    <div class="research-grid">
+      <div class="research-card">
+        <div class="research-icon">🦾</div>
+        <h3>Robot Learning</h3>
+        <p>We develop algorithms that enable robots to acquire new skills through imitation, reinforcement, and self-supervised learning — reducing the need for hand-engineered controllers.</p>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">👁️</div>
+        <h3>Perception & 3D Understanding</h3>
+        <p>Building real-time scene understanding pipelines that let robots interpret cluttered, dynamic environments using RGB-D cameras and neural implicit representations.</p>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🤝</div>
+        <h3>Human-Robot Collaboration</h3>
+        <p>Designing robots that infer human intent, anticipate needs, and coordinate fluidly with people in shared workspaces — from manufacturing floors to home assistance.</p>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🧠</div>
+        <h3>Foundation Models for Robotics</h3>
+        <p>Adapting large language and vision models for robot planning, enabling open-vocabulary task specification and zero-shot generalization to novel objects and environments.</p>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🔒</div>
+        <h3>Safe & Robust Autonomy</h3>
+        <p>Formal verification, uncertainty quantification, and safe RL methods that provide certified guarantees on robot behavior in safety-critical deployments.</p>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🌐</div>
+        <h3>Multi-Robot Systems</h3>
+        <p>Distributed algorithms for robot swarms and heterogeneous teams to coordinate tasks, share information, and achieve collective goals efficiently.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Publications</div>
+      <h2 class="section-title">Recent work</h2>
+      <p class="section-desc">Selected papers from our group. See our <a href="#">Google Scholar page</a> for the full list.</p>
+    </div>
+    <div class="pub-list">
+      <div class="pub-item">
+        <div class="pub-year">2026</div>
+        <div class="pub-info">
+          <h4>AdaptNet: Zero-Shot Robot Manipulation via Adaptive Foundation Model Prompting</h4>
+          <p>J. Kim, S. Patel, M. Chen, R. Nguyen, A. Torres</p>
+          <span class="pub-venue">RSS 2026</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2026</div>
+        <div class="pub-info">
+          <h4>Safe Reinforcement Learning with Formal Certificates for Legged Locomotion</h4>
+          <p>A. Torres, L. Wang, M. Chen</p>
+          <span class="pub-venue">ICRA 2026</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2025</div>
+        <div class="pub-info">
+          <h4>Neural Implicit Representations for Real-Time Robot Scene Understanding</h4>
+          <p>S. Patel, J. Kim, K. Okafor</p>
+          <span class="pub-venue">CoRL 2025</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2025</div>
+        <div class="pub-info">
+          <h4>Learning to Collaborate: Multi-Agent Coordination via Emergent Communication</h4>
+          <p>R. Nguyen, A. Torres, J. Kim</p>
+          <span class="pub-venue">NeurIPS 2025</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2025</div>
+        <div class="pub-info">
+          <h4>Anticipatory Robot Assistance through Hierarchical Intent Inference</h4>
+          <p>M. Chen, L. Wang, S. Patel</p>
+          <span class="pub-venue">HRI 2025</span>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-year">2024</div>
+        <div class="pub-info">
+          <h4>One-Shot Imitation Learning from Human Video Demonstrations</h4>
+          <p>J. Kim, K. Okafor, M. Chen, S. Patel</p>
+          <span class="pub-venue">ICLR 2024</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">People</div>
+      <h2 class="section-title">The team</h2>
+      <p class="section-desc">A diverse group of researchers united by curiosity and a drive to build robots that work in the real world.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar">JP</div>
+        <h3>Prof. Jamie Park</h3>
+        <p class="role">Principal Investigator</p>
+        <span class="research-area">Robot Learning</span>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">JK</div>
+        <h3>Ji-Woo Kim</h3>
+        <p class="role">PhD Student</p>
+        <span class="research-area">Foundation Models</span>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">SP</div>
+        <h3>Shreya Patel</h3>
+        <p class="role">PhD Student</p>
+        <span class="research-area">3D Perception</span>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">MC</div>
+        <h3>Marco Chen</h3>
+        <p class="role">PhD Student</p>
+        <span class="research-area">HRI</span>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">RN</div>
+        <h3>Rin Nguyen</h3>
+        <p class="role">PhD Student</p>
+        <span class="research-area">Multi-Robot</span>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">AT</div>
+        <h3>Ana Torres</h3>
+        <p class="role">PhD Student</p>
+        <span class="research-area">Safe Autonomy</span>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">LW</div>
+        <h3>Leo Wang</h3>
+        <p class="role">MS Student</p>
+        <span class="research-area">Robot Learning</span>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">KO</div>
+        <h3>Kemi Okafor</h3>
+        <p class="role">MS Student</p>
+        <span class="research-area">Perception</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">News</div>
+      <h2 class="section-title">Latest updates</h2>
+    </div>
+    <div class="news-list">
+      <div class="news-item">
+        <div class="news-date">Jun 2026</div>
+        <div>
+          <span class="news-tag tag-paper">Paper</span>
+          <h4>AdaptNet accepted to RSS 2026</h4>
+          <p>Our work on zero-shot manipulation via foundation model prompting will be presented at Robotics: Science and Systems in Pittsburgh.</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">May 2026</div>
+        <div>
+          <span class="news-tag tag-award">Award</span>
+          <h4>Ana Torres receives NSF Graduate Research Fellowship</h4>
+          <p>Congratulations to Ana for receiving the prestigious NSF GRFP award for her work on safe autonomy!</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">Mar 2026</div>
+        <div>
+          <span class="news-tag tag-hiring">Hiring</span>
+          <h4>We are recruiting PhD students for Fall 2027</h4>
+          <p>We have openings for 2–3 PhD students with interests in robot learning, perception, and foundation models. Apply through the university's graduate portal.</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">Feb 2026</div>
+        <div>
+          <span class="news-tag tag-paper">Paper</span>
+          <h4>Safe RL paper accepted to ICRA 2026</h4>
+          <p>Ana Torres and Leo Wang's paper on formal certificates for legged locomotion will appear at ICRA in Atlanta.</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">Jan 2026</div>
+        <div>
+          <span class="news-tag tag-event">Event</span>
+          <h4>Lab demo at the International Robot Showcase</h4>
+          <p>We showcased our collaborative robot assembly system at IRS 2026. Thanks to everyone who stopped by our booth!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Contact</div>
+      <h2 class="section-title">Get in touch</h2>
+      <p class="section-desc">Interested in collaborating, joining the lab, or just learning more about our work?</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-block">
+          <h4>Principal Investigator</h4>
+          <p>Prof. Jamie Park</p>
+          <a href="mailto:jpark@university.edu">jpark@university.edu</a>
+        </div>
+        <div class="contact-block">
+          <h4>Location</h4>
+          <p>Engineering Hall, Room 314<br>University Campus<br>City, State 00000</p>
+        </div>
+        <div class="contact-block">
+          <h4>Prospective Students</h4>
+          <p>We welcome applications from motivated PhD and MS students. Please mention "Adaptive Robotics Lab" in your application and email the PI with your CV and a brief research statement.</p>
+        </div>
+        <div class="contact-block">
+          <h4>Links</h4>
+          <p>
+            <a href="#">Google Scholar</a> ·
+            <a href="#">GitHub</a> ·
+            <a href="#">Twitter / X</a>
+          </p>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <input type="text" placeholder="First name" required />
+          <input type="text" placeholder="Last name" required />
+        </div>
+        <input type="email" placeholder="Email address" required />
+        <select>
+          <option value="" disabled selected>Reason for contact</option>
+          <option>Prospective PhD student</option>
+          <option>Prospective MS student</option>
+          <option>Research collaboration</option>
+          <option>Industry partnership</option>
+          <option>Media / press</option>
+          <option>Other</option>
+        </select>
+        <textarea placeholder="Your message..."></textarea>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span>© 2026 Adaptive Robotics Lab</span>
+    <span>Built with care · <a href="#hero">Back to top ↑</a></span>
+  </div>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.textContent = '✓ Sent!';
+    btn.style.background = '#16a34a';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Send Message';
+      btn.style.background = '';
+      btn.disabled = false;
+      e.target.reset();
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>
