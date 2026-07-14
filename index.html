@@ -283,6 +283,15 @@
     .footer-inner a { color: rgba(255,255,255,0.7); }
     .footer-inner a:hover { color: #fff; }
 
+    /* ── Funding ── */
+    .funding-list { display: flex; flex-direction: column; gap: 20px; }
+    .funding-item { display: flex; gap: 28px; align-items: center; justify-content: space-between; flex-wrap: wrap; border: 1px solid var(--border); border-radius: var(--radius); background: #fff; padding: 24px; }
+    .funding-body { flex: 1 1 320px; }
+    .funding-body h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
+    .funding-body p { font-size: 0.85rem; color: var(--gray); line-height: 1.7; }
+    .funding-logos { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .funding-logos img { height: 46px; width: auto; border: 1px solid var(--border); border-radius: 4px; background: #fff; }
+
     /* ── Responsive ── */
     @media (max-width: 680px) {
       .hero-stats { flex-wrap: wrap; gap: 24px; }
@@ -304,6 +313,7 @@
       <li><a href="#team">Team</a></li>
       <li><a href="#news">News</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><a href="#funding">Funding</a></li>
     </ul>
   </div>
 </nav>
@@ -384,15 +394,6 @@
         <div class="research-icon">☁️</div>
         <h3>Cloud Robotics</h3>
         <p>Robot-to-robot collaboration through cloud services, enabling distributed intelligence and monitoring of human activities across networked robotic systems.</p>
-      </div>
-    </div>
-    <div class="jka-funding" style="margin-top:40px; padding:20px 24px; border:1px solid var(--border); border-radius:var(--radius); background:var(--bg-soft);">
-      <div style="font-size:0.75rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:8px;">Funding &middot; 補助事業</div>
-      <p style="font-size:0.85rem; color:var(--gray); line-height:1.7;">The BrachioFlex project (Brachiation Robot with a Flexible Magnetic Arm for Steel-Structure Inspection) was carried out with a subsidy from <a href="https://hojo.keirin-autorace.or.jp/" target="_blank">JKA</a> through its KEIRIN promotion funds (FY2025, subsidy no. 2025M-401).<br>
-      本研究「BrachioFlex：鉄骨構造検査向けの柔軟磁気アーム搭載ブラキエーションロボット」は、<a href="https://hojo.keirin-autorace.or.jp/" target="_blank">公益財団法人JKA</a>の補助（競輪の補助事業／2025年度 補助事業番号 2025M-401）を受けて実施しました。</p>
-      <div style="display:flex; gap:16px; align-items:center; margin-top:18px; flex-wrap:wrap;">
-        <a href="https://www.jka-cycle.jp/" target="_blank" rel="noopener"><img src="assets/jka-social-action.png" alt="JKA Social Action - Keirin/Auto Race subsidy" style="height:46px; width:auto; border:1px solid var(--border); border-radius:4px;"></a>
-        <a href="https://keirin.jp/" target="_blank" rel="noopener"><img src="assets/keirin-jp.gif" alt="KEIRIN.JP Official Website" style="height:46px; width:auto; border:1px solid var(--border); border-radius:4px;"></a>
       </div>
     </div>
   </div>
@@ -724,6 +725,30 @@
         <textarea placeholder="Your message..."></textarea>
         <button type="submit" class="btn btn-primary">Send Message</button>
       </form>
+    </div>
+  </div>
+</section>
+
+<!-- FUNDING -->
+<section id="funding">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Funding</div>
+      <h2 class="section-title">Funding &amp; acknowledgments</h2>
+      <p class="section-desc">Our research is supported by the following grants and partners.</p>
+    </div>
+    <div class="funding-list">
+      <div class="funding-item">
+        <div class="funding-body">
+          <h4>BrachioFlex &mdash; JKA (KEIRIN) subsidy &middot; FY2025, no. 2025M-401</h4>
+          <p>The BrachioFlex project (Brachiation Robot with a Flexible Magnetic Arm for Steel-Structure Inspection) was carried out with a subsidy from <a href="https://hojo.keirin-autorace.or.jp/" target="_blank" rel="noopener">JKA</a> through its KEIRIN promotion funds.<br>
+          本研究「BrachioFlex：鉄骨構造検査向けの柔軟磁気アーム搭載ブラキエーションロボット」は、<a href="https://hojo.keirin-autorace.or.jp/" target="_blank" rel="noopener">公益財団法人JKA</a>の補助（競輪の補助事業／2025年度 補助事業番号 2025M-401）を受けて実施しました。</p>
+        </div>
+        <div class="funding-logos">
+          <a href="https://www.jka-cycle.jp/" target="_blank" rel="noopener"><img src="assets/jka-social-action.png" alt="JKA Social Action - KEIRIN subsidy"></a>
+          <a href="https://keirin.jp/" target="_blank" rel="noopener"><img src="assets/keirin-jp.gif" alt="KEIRIN.JP Official Website"></a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
