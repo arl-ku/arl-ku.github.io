@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BrachioFlex · Adaptive Robotics Lab</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #111111;
+      --gray-dark: #333333;
+      --gray: #666666;
+      --gray-light: #999999;
+      --border: #e5e5e5;
+      --bg: #ffffff;
+      --bg-soft: #f8f8f8;
+      --accent: #1a56db;
+      --accent-light: #eff4ff;
+      --radius: 8px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); color: var(--black); background: var(--bg); line-height: 1.6; font-size: 16px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 56px 0; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    .nav-logo { font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; color: var(--black); }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 0.9rem; color: var(--gray-dark); font-weight: 500; }
+
+    .hero { padding: 64px 0 40px; border-bottom: 1px solid var(--border); }
+    .hero-tag { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; margin-bottom: 18px; }
+    .hero-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 16px; }
+    .hero-title em { font-style: normal; color: var(--accent); }
+    .hero-sub { font-size: 1.1rem; color: var(--gray); max-width: 640px; line-height: 1.7; }
+
+    h2.section-title { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 14px; }
+    h3.sub-title { font-size: 1.05rem; font-weight: 700; margin: 26px 0 8px; }
+    p.body { color: var(--gray-dark); margin-bottom: 14px; line-height: 1.75; }
+    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+
+    .figure { margin: 24px 0; }
+    .figure img { border: 1px solid var(--border); border-radius: var(--radius); width: 100%; }
+    .figure figcaption { font-size: 0.82rem; color: var(--gray-light); margin-top: 8px; }
+
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 8px; }
+    .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+    .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    .video-cap { font-size: 0.85rem; color: var(--gray); margin-top: 8px; }
+
+    .highlights { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 8px; }
+    .highlight { border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; background: #fff; }
+    .highlight .k { font-size: 1.6rem; font-weight: 800; color: var(--accent); letter-spacing: -0.03em; }
+    .highlight .v { font-size: 0.85rem; color: var(--gray); margin-top: 4px; }
+
+    .soft { background: var(--bg-soft); }
+    .callout { border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-soft); padding: 20px 24px; }
+    .callout .label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .callout p { font-size: 0.9rem; color: var(--gray); line-height: 1.75; }
+    .jka-logos { display: flex; gap: 16px; align-items: center; margin-top: 16px; flex-wrap: wrap; }
+    .jka-logos img { height: 46px; width: auto; border: 1px solid var(--border); border-radius: 4px; }
+
+    footer { background: var(--black); color: rgba(255,255,255,0.5); padding: 28px 0; margin-top: 8px; }
+    .footer-inner { max-width: 900px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-inner a { color: rgba(255,255,255,0.7); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Adaptive<span>Robotics</span></a>
+    <a href="index.html#research" class="nav-back">&larr; Back to lab</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag">Project · Hybrid Robotics</div>
+    <h1 class="hero-title"><em>BrachioFlex</em></h1>
+    <p class="hero-sub">A brachiation robot with a flexible magnetic arm for inspecting the underside of steel structures. It combines a compliant continuum arm with magnetic adhesion, and uses reinforcement learning to autonomously generate swinging (brachiation) locomotion.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label">Overview</div>
+    <h2 class="section-title">Inspecting where wheels and drones can't</h2>
+    <p class="body">Steel structures in factories, warehouses, bridges, and plants require regular inspection as they age, but working at height and in confined spaces is dangerous and labor-intensive. Conventional wheeled and crawler robots struggle to move along the underside of steel beams, and drones face limits on flight time and stability in tight spaces.</p>
+    <p class="body">BrachioFlex takes inspiration from biological brachiation &mdash; the arm-over-arm swinging locomotion of primates &mdash; and pairs it with a flexible, magnetically adhering arm to move across steel ceilings and beam undersides that were previously hard to reach.</p>
+
+    <div class="figure">
+      <img src="assets/brachioflex-concept.png" alt="Left: a person inspecting the underside of a steel bridge. Right: the BrachioFlex concept moving along the same structure." />
+      <figcaption>Manual inspection under a steel bridge (left) and the BrachioFlex concept navigating the same underside structure (right).</figcaption>
+    </div>
+  </div>
+</section>
+
+<section class="soft">
+  <div class="container">
+    <div class="section-label">Research</div>
+    <h2 class="section-title">How it works</h2>
+
+    <h3 class="sub-title">Flexible magnetic-arm robot</h3>
+    <p class="body">The continuum arm embeds elastic elements to balance mobility with stiffness. Permanent magnets at the arm tips provide switchable adhesion to and release from steel surfaces. To switch adhesion reliably even during swinging, a dual-pulley mechanism was designed and prototyped with 3D printing.</p>
+
+    <div class="figure" style="max-width:320px;">
+      <img src="assets/brachioflex-robot.png" alt="The BrachioFlex prototype: a dark continuum arm with magnetic grippers and a central dual-pulley body." />
+      <figcaption>The prototype flexible magnetic arm with its dual-pulley adhesion-switching mechanism.</figcaption>
+    </div>
+
+    <h3 class="sub-title">Learning to swing</h3>
+    <p class="body">Brachiation motion is generated with reinforcement learning. Initial validation used a double-pendulum model, then extended to a full-body robot model with the flexible arm. Applying PPO (Proximal Policy Optimization) optimized adhesion timing and arm-curvature control, achieving stable locomotion on inclines up to roughly 30&deg;.</p>
+
+    <div class="highlights">
+      <div class="highlight"><div class="k">~30&deg;</div><div class="v">Stable locomotion on inclined surfaces</div></div>
+      <div class="highlight"><div class="k">PPO</div><div class="v">Reinforcement learning for motion generation</div></div>
+      <div class="highlight"><div class="k">Magnetic</div><div class="v">Switchable adhesion via dual-pulley mechanism</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label">Demonstrations</div>
+    <h2 class="section-title">Videos</h2>
+    <div class="video-grid">
+      <div>
+        <div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/ihndHIiYcYA" title="BrachioFlex prototype" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-cap">Flexible magnetic-arm robot prototype. <a href="https://www.youtube.com/watch?v=3bsX6UPRjB0" target="_blank" rel="noopener">More footage &rarr;</a></p>
+      </div>
+      <div>
+        <div class="video-wrap"><iframe src="https://www.youtube-nocookie.com/embed/1KuFcKaWZMI" title="BrachioFlex simulation" allowfullscreen loading="lazy"></iframe></div>
+        <p class="video-cap">Brachiation motion simulation (reinforcement learning). <a href="https://youtu.be/BkpfHUzIemc" target="_blank" rel="noopener">More footage &rarr;</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="soft">
+  <div class="container">
+    <div class="section-label">Outlook &amp; publications</div>
+    <h2 class="section-title">Where it's headed</h2>
+    <p class="body">BrachioFlex points toward new inspection technology for steel-structure undersides that conventional robots cannot reach &mdash; reducing labor, improving safety, and lowering maintenance costs for high or confined spaces. Combining compliant structures with reinforcement learning opens a path to next-generation inspection robots that adapt to diverse structural environments.</p>
+    <p class="body">Part of this work was presented at the <strong>Construction Robot Symposium 2025</strong> and published in the proceedings.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="callout">
+      <div class="label">Funding &middot; 補助事業</div>
+      <p>The BrachioFlex project (Brachiation Robot with a Flexible Magnetic Arm for Steel-Structure Inspection) was carried out with a subsidy from <a href="https://hojo.keirin-autorace.or.jp/" target="_blank" rel="noopener">JKA</a> through its KEIRIN promotion funds (FY2025, subsidy no. 2025M-401).<br>
+      本研究「BrachioFlex：鉄骨構造検査向けの柔軟磁気アーム搭載ブラキエーションロボット」は、<a href="https://hojo.keirin-autorace.or.jp/" target="_blank" rel="noopener">公益財団法人JKA</a>の補助（競輪の補助事業／2025年度 補助事業番号 2025M-401）を受けて実施しました。</p>
+      <div class="jka-logos">
+        <a href="https://www.jka-cycle.jp/" target="_blank" rel="noopener"><img src="assets/jka-social-action.png" alt="JKA Social Action - Keirin subsidy" /></a>
+        <a href="https://keirin.jp/" target="_blank" rel="noopener"><img src="assets/keirin-jp.gif" alt="KEIRIN.JP Official Website" /></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span>&copy; 2026 Adaptive Robotics Lab</span>
+    <span><a href="index.html#research">&larr; Back to research</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
